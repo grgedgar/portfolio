@@ -1,4 +1,4 @@
-# test-app
+# test-app (without adding new todo function)
 
 > A Vue.js project
 
