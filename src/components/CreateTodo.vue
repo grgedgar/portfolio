@@ -12,10 +12,10 @@
           </div>
           <div class='field'>
             <label>Project</label>
-            <input type='text' ref='project' defaultValue="" />
+            <input v-model="projectText" type='text' ref='project' defaultValue="" />
           </div>
           <div class='ui two button attached buttons'>
-            <button class='ui basic blue button' v-on:click="sendForm()">
+            <button class='ui basic blue button' v-on:click="sendForm">
               Create
             </button>
             <button class='ui basic red button' v-on:click="closeForm">
@@ -24,6 +24,10 @@
           </div>
         </div>
       </div>
+    </div>
+    <div id="example-2">
+      <!-- `greet` — это название метода, определённого ниже
+      <button v-on:click="greet">Поприветствовать</button> -->
     </div>
   </div>
 </template>
@@ -45,6 +49,7 @@ export default {
       this.isCreating = false;
     },
     sendForm() {
+      // alert(this.projectText.length + this.projectText.length);
       if (this.titleText.length > 0 && this.projectText.length > 0) {
         const title = this.titleText;
         const project = this.projectText;
@@ -53,6 +58,7 @@ export default {
           project,
           done: false,
         });
+        // alert(title + project);
         this.newTodoText = '';
       }
       this.isCreating = false;
