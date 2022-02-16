@@ -1,4 +1,4 @@
-# test-app in VueJS (beta, without adding new todo function)
+# test-app in VueJS (stable ver.1)
 
 > A Vue.js project
 
