@@ -16,11 +16,11 @@ export default {
     CreateTodo,
   },
   methods: {
-    addTodo(title, project) {
+    addTodo(newtitle, newproject) {
       this.todos.push({
-        title,
-        project,
-        done: true,
+        title: newtitle,
+        project: newproject,
+        done: false,
       });
     },
   },

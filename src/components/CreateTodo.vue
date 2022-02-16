@@ -25,10 +25,6 @@
         </div>
       </div>
     </div>
-    <div id="example-2">
-      <!-- `greet` — это название метода, определённого ниже
-      <button v-on:click="greet">Поприветствовать</button> -->
-    </div>
   </div>
 </template>
 
@@ -49,16 +45,10 @@ export default {
       this.isCreating = false;
     },
     sendForm() {
-      // alert(this.projectText.length + this.projectText.length);
       if (this.titleText.length > 0 && this.projectText.length > 0) {
         const title = this.titleText;
         const project = this.projectText;
-        this.$emit('create-todo', {
-          title,
-          project,
-          done: false,
-        });
-        // alert(title + project);
+        this.$emit('add-todo', title, project);
         this.newTodoText = '';
       }
       this.isCreating = false;
