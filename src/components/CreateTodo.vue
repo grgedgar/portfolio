@@ -49,7 +49,8 @@ export default {
         const title = this.titleText;
         const project = this.projectText;
         this.$emit('add-todo', title, project);
-        this.newTodoText = '';
+        this.titleText = '';
+        this.projectText = '';
       }
       this.isCreating = false;
     },
