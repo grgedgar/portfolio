@@ -1,4 +1,8 @@
-# test-app in VueJS (stable ver.1)
+# test-app in VueJS (ver.1.1)
+
+replaced v-show to v-if
+v-on:click -> @click
+added field validation
 
 > A Vue.js project
 
