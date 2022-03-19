@@ -29,6 +29,8 @@
 </template>
 
 <script>
+/* import { saveTodos } from './TodoList'; */
+
 export default {
   data() {
     return {
@@ -64,6 +66,7 @@ export default {
         this.$emit('add-todo', title, project);
         this.titleText = '';
         this.projectText = '';
+        this.$emit('save-todos');
       }
       this.isCreating = false;
     },

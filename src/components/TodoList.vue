@@ -15,19 +15,31 @@ export default {
   components: {
     Todo,
   },
+  mounted() {
+    if (JSON.parse(window.localStorage.getItem('todos')) !== null) {
+      this.todos = JSON.parse(window.localStorage.getItem('todos'));
+      this.$todos = this.todos;
+    } else {
+      console.log('no localstorage data');
+    }
+  },
   methods: {
     deleteTodo(todo) {
       const todoIndex = this.todos.indexOf(todo);
       this.todos.splice(todoIndex, 1);
+      this.$emit('save-todos');
     },
     completeTodo(todo) {
       const todoIndex = this.todos.indexOf(todo);
       this.todos[todoIndex].done = true;
+      this.$emit('save-todos');
     },
     uncompleteTodo(todo) {
       const todoIndex = this.todos.indexOf(todo);
       this.todos[todoIndex].done = false;
+      this.$emit('save-todos');
     },
   },
 };
+
 </script>

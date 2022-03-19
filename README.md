@@ -1,5 +1,7 @@
-# test-app in VueJS (ver.1.1)
+# test-app in VueJS (ver.1.2)
+changes are saved after refreshing the page
 
+ver.1.1
 replaced v-show to v-if
 v-on:click -> @click
 added field validation
