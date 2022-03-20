@@ -1,5 +1,8 @@
-# test-app in VueJS (ver.1.3)
-validation bug fixed
+# test-app in VueJS (ver.1.4)
+a button that allows to download a file with the list of tasks was added
+
+ver.1.3
+fixed a problem with validation
 
 ver.1.2
 changes are saved after refreshing the page

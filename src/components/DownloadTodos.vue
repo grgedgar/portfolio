@@ -1,17 +1,17 @@
 <template>
-  <div>
-    <button class='ui basic button icon' @click="openForm" v-if="!isCreating">
-      <i class='plus icon'></i>
+  <div class='ui basic content left aligned segment'>
+    <button class='ui basic button icon' @click="downloadTodos" >
+      <i class='download icon'></i>
     </button>
   </div>
 </template>
 
 <script>
-export default {
 
+export default {
   methods: {
-    openForm() {
-      this.isCreating = true;
+    downloadTodos() {
+      this.$emit('download-todos');
     },
   },
 };
