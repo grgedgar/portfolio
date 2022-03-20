@@ -2,7 +2,7 @@
   <div>
     <p>Completed Tasks: {{todos.filter(todo => {return todo.done === true}).length}}</p>
     <p>Pending Tasks: {{todos.filter(todo => {return todo.done === false}).length}}</p>
-    <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-on:uncomplete-todo="uncompleteTodo" v-for="todo in todos" :todo.sync="todo" :key="todo.id"></todo>
+    <todo v-on:delete-todo="deleteTodo" v-on:save-todos="saveTodos" v-on:complete-todo="completeTodo" v-on:uncomplete-todo="uncompleteTodo" v-for="todo in todos" :todo.sync="todo" :key="todo.id"></todo>
   </div>
 </template>
 
@@ -14,14 +14,6 @@ export default {
   props: ['todos'],
   components: {
     Todo,
-  },
-  mounted() {
-    if (JSON.parse(window.localStorage.getItem('todos')) !== null) {
-      this.todos = JSON.parse(window.localStorage.getItem('todos'));
-      this.$todos = this.todos;
-    } else {
-      console.log('no localstorage data');
-    }
   },
   methods: {
     deleteTodo(todo) {
@@ -37,6 +29,8 @@ export default {
     uncompleteTodo(todo) {
       const todoIndex = this.todos.indexOf(todo);
       this.todos[todoIndex].done = false;
+    },
+    saveTodos() {
       this.$emit('save-todos');
     },
   },

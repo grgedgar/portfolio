@@ -57,6 +57,7 @@ export default {
     },
     hideForm() {
       this.isEditing = false;
+      this.$emit('save-todos');
     },
     deleteTodo(todo) {
       this.$emit('delete-todo', todo);

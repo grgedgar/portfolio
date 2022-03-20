@@ -8,14 +8,14 @@
         <div class='ui form'>
           <div class='field'>
             <label>Title</label>
-            <input v-model="titleText" type='text' ref='title' defaultValue="" @change="validateForm" />
+            <input v-model="titleText" type='text' ref='title' defaultValue="" v-on:keyup="validateForm" />
           </div>
           <div class='field'>
             <label>Project</label>
-            <input v-model="projectText" type='text' ref='project' defaultValue="" @change="validateForm" />
+            <input v-model="projectText" type='text' ref='project' defaultValue="" v-on:keyup="validateForm" />
           </div>
           <div class='ui two button attached buttons'>
-            <button class='ui basic blue button' @click="sendForm" :disabled="isDisabled">
+            <button class='ui basic blue button' @click="sendForm" :disabled="isDisabled" v-if="!buttonDisabled">
               Create
             </button>
             <button class='ui basic red button' @click="closeForm">
@@ -29,7 +29,6 @@
 </template>
 
 <script>
-/* import { saveTodos } from './TodoList'; */
 
 export default {
   data() {
@@ -67,6 +66,7 @@ export default {
         this.titleText = '';
         this.projectText = '';
         this.$emit('save-todos');
+        this.buttonDisabled = true;
       }
       this.isCreating = false;
     },

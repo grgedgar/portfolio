@@ -6,16 +6,16 @@
 </template>
 
 <script>
+import DowoloadTodos from './components/DownloadTodos';
 import TodoList from './components/TodoList';
 import CreateTodo from './components/CreateTodo';
-import SaveTodos from './components/SaveTodos';
 
 export default {
   name: 'app',
   components: {
+    DowoloadTodos,
     TodoList,
     CreateTodo,
-    SaveTodos,
   },
   mounted() {
     if (JSON.parse(window.localStorage.getItem('todos')) !== null) {
@@ -35,8 +35,6 @@ export default {
     saveTodos() {
       const todosToExport = JSON.stringify(this.todos);
       window.localStorage.setItem('todos', todosToExport);
-      console.log(this.todos);
-      console.log(JSON.parse(window.localStorage.getItem('todos')));
     },
   },
   data() {

@@ -1,4 +1,7 @@
-# test-app in VueJS (ver.1.2)
+# test-app in VueJS (ver.1.3)
+validation bug fixed
+
+ver.1.2
 changes are saved after refreshing the page
 
 ver.1.1
