@@ -1,7 +1,5 @@
 <template>
   <div>
-    <p>Completed Tasks: {{todos.filter(todo => {return todo.done === true}).length}}</p>
-    <p>Pending Tasks: {{todos.filter(todo => {return todo.done === false}).length}}</p>
     <todo v-on:delete-todo="deleteTodo" v-on:save-todos="saveTodos" v-on:complete-todo="completeTodo" v-on:uncomplete-todo="uncompleteTodo" v-for="todo in todos" :todo.sync="todo" :key="todo.id"></todo>
   </div>
 </template>
@@ -19,7 +17,10 @@ export default {
     deleteTodo(todo) {
       const todoIndex = this.todos.indexOf(todo);
       this.todos.splice(todoIndex, 1);
-      this.$emit('save-todos');
+      this.localstorageTodos = JSON.parse(localStorage.getItem('todos_all'));
+      this.localstorageTodos.splice(todoIndex, 1);
+      localStorage.setItem('todos_all', JSON.stringify(this.localstorageTodos));
+      window.location.reload();
     },
     completeTodo(todo) {
       const todoIndex = this.todos.indexOf(todo);
@@ -29,6 +30,7 @@ export default {
     uncompleteTodo(todo) {
       const todoIndex = this.todos.indexOf(todo);
       this.todos[todoIndex].done = false;
+      this.$emit('save-todos');
     },
     saveTodos() {
       this.$emit('save-todos');

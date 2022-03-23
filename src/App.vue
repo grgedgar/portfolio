@@ -1,44 +1,66 @@
 <template>
   <div>
+    <count-todos v-bind:todos="todos"></count-todos>
     <download-todos v-on:download-todos="downloadTodos"></download-todos>
     <todo-list v-bind:todos="todos" v-on:save-todos="saveTodos"></todo-list>
     <create-todo v-on:add-todo="addTodo" v-on:save-todos="saveTodos"></create-todo>
+    <paginate-todos v-bind:todos="todos"></paginate-todos>
   </div>
 </template>
 
 <script>
+import CountTodos from './components/CountTodos';
 import DownloadTodos from './components/DownloadTodos';
 import TodoList from './components/TodoList';
 import CreateTodo from './components/CreateTodo';
+import PaginateTodos from './components/PaginateTodos';
 
 export default {
   name: 'app',
   components: {
+    CountTodos,
     DownloadTodos,
     TodoList,
     CreateTodo,
+    PaginateTodos,
   },
   mounted() {
-    if (JSON.parse(window.localStorage.getItem('todos')) !== null) {
-      this.todos = JSON.parse(window.localStorage.getItem('todos'));
-    } else {
-      console.log('no localstorage data');
+    if (localStorage.getItem('todos_all')) {
+      this.localstorageTodos = JSON.parse(localStorage.getItem('todos_all'));
+    }
+    let pageNumber = 1;
+    if (window.location.href.indexOf('?') > -1) {
+      pageNumber = window.location.href.split('=')[1];
+    }
+    if (window.location.href.indexOf('?') < 0) {
+      window.location.href = `?page=${pageNumber}`;
+    }
+    if (this.localstorageTodos) {
+      const todosShowingRangeMax = pageNumber * 5;
+      const todosShowingRangeMin = (pageNumber * 5) - 5;
+      this.todos = this.localstorageTodos.slice(todosShowingRangeMin, todosShowingRangeMax);
     }
   },
   methods: {
+    paginateTodos() {
+      localStorage.setItem('pagination_todos_quantity', this.todos.length);
+    },
+    saveTodos() {
+      localStorage.setItem('todos_all', JSON.stringify(this.localstorageTodos));
+    },
     addTodo(newtitle, newproject) {
-      this.todos.push({
+      if (localStorage.getItem('todos_all')) {
+        this.localstorageTodos = JSON.parse(localStorage.getItem('todos_all'));
+      }
+      this.localstorageTodos.push({
         title: newtitle,
         project: newproject,
         done: false,
       });
-    },
-    saveTodos() {
-      const todosToExport = JSON.stringify(this.todos);
-      window.localStorage.setItem('todos', todosToExport);
+      document.location.reload();
     },
     downloadTodos() {
-      let tmp = JSON.stringify(Object.values(this.todos));
+      let tmp = JSON.stringify(Object.values(this.localstorageTodos));
       tmp = tmp.substring(2);
       tmp = tmp.slice(0, -2);
       tmp = tmp.replace(/"title":/g, '');
@@ -62,6 +84,7 @@ export default {
   data() {
     return {
       todos: [],
+      localstorageTodos: [],
     };
   },
 };

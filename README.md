@@ -1,4 +1,8 @@
-# test-app in VueJS (ver.1.4)
+# test-app in VueJS (ver.1.5)
+made section "Count of tasks" as a separate component
+pagination was added to the list
+
+ver.1.4
 a button that allows to download a file with the list of tasks was added
 
 ver.1.3
