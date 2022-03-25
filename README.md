@@ -1,4 +1,8 @@
-# test-app in VueJS (ver.1.5)
+# test-app in VueJS (ver.1.6)
+fixed a problem with counting the tasks
+made a feature that switches to the new page when the new task is added
+
+ver.1.5
 made section "Count of tasks" as a separate component
 pagination was added to the list
 

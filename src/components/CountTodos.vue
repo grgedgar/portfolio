@@ -1,7 +1,7 @@
 <template>
   <div>
-    <p>Completed Tasks: {{todos.filter(todo => {return todo.done === true}).length}}</p>
-    <p>Pending Tasks: {{todos.filter(todo => {return todo.done === false}).length}}</p>
+    <p>Completed Tasks: {{localstorageTodos.filter(todo => {return todo.done === true}).length}}</p>
+    <p>Pending Tasks: {{localstorageTodos.filter(todo => {return todo.done === false}).length}}</p>
   </div>
 </template>
 
@@ -15,6 +15,16 @@ export default {
   components: {
     Paginate,
     Todo,
+  },
+  mounted() {
+    if (localStorage.getItem('todos_all')) {
+      this.localstorageTodos = JSON.parse(localStorage.getItem('todos_all'));
+    }
+  },
+  data() {
+    return {
+      localstorageTodos: [],
+    };
   },
 };
 

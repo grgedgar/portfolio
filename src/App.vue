@@ -49,20 +49,34 @@ export default {
       localStorage.setItem('todos_all', JSON.stringify(this.localstorageTodos));
     },
     addTodo(newtitle, newproject) {
+      let uidToExport = 1;
+      if (localStorage.getItem('last_uid') !== undefined) {
+        uidToExport = JSON.parse(localStorage.getItem('last_uid')) + 1;
+      }
+      JSON.stringify(localStorage.setItem('last_uid', uidToExport));
       if (localStorage.getItem('todos_all')) {
         this.localstorageTodos = JSON.parse(localStorage.getItem('todos_all'));
       }
       this.localstorageTodos.push({
+        uid: uidToExport,
         title: newtitle,
         project: newproject,
         done: false,
       });
-      document.location.reload();
+      this.saveTodos();
+      if (this.localstorageTodos.length % 6 === 0) {
+        const newPageToSwitch = Math.ceil(this.localstorageTodos.length / 5);
+        const newURL = window.location.href.substring(0, window.location.href.indexOf('='));
+        window.location.href = `${newURL}=${newPageToSwitch}`;
+      } else {
+        document.location.reload();
+      }
     },
     downloadTodos() {
       let tmp = JSON.stringify(Object.values(this.localstorageTodos));
       tmp = tmp.substring(2);
       tmp = tmp.slice(0, -2);
+      tmp = tmp.replace(/"uid":/g, '');
       tmp = tmp.replace(/"title":/g, '');
       tmp = tmp.replace(/"project":/g, '');
       tmp = tmp.replace(/"done":/g, '');
@@ -71,7 +85,7 @@ export default {
       tmp = tmp.replace(/"/g, '');
       tmp = tmp.replace(/true/g, '"YES"');
       tmp = tmp.replace(/false/g, '"NO"');
-      const todosToDownload = `TITLE;PROJECT;DONE\n ${tmp}`;
+      const todosToDownload = `ID;TITLE;PROJECT;DONE\n ${tmp}`;
       const dataStr = `data:application/vnd.ms-excel;charset=utf-8,${encodeURIComponent(todosToDownload)}`;
       const downloadAnchorNode = document.createElement('a');
       downloadAnchorNode.setAttribute('href', dataStr);

@@ -65,7 +65,6 @@ export default {
         this.$emit('add-todo', title, project);
         this.titleText = '';
         this.projectText = '';
-        this.$emit('save-todos');
         this.buttonDisabled = true;
       }
       this.isCreating = false;
