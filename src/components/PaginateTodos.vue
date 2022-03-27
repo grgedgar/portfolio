@@ -29,7 +29,9 @@ export default {
     }
 
     if (window.location.href.indexOf('?') > -1) {
-      this.pageNumber = Number(window.location.href.split('=')[1]);
+      const url = new URL(window.location.href);
+      this.pageNumberFromURL = Number(url.searchParams.get('page'));
+      this.pageNumber = this.pageNumberFromURL;
     }
     if (this.localstorageTodos) {
       this.pagesInPagination = Math.ceil(this.localstorageTodos.length / 5);
@@ -37,17 +39,18 @@ export default {
         this.pagesInPagination = 1;
       }
     }
-    if (window.location.href.split('=')[1] > this.pagesInPagination && window.location.href.split('=')[1] > 1) {
-      const newURL = window.location.href.substring(0, window.location.href.indexOf('='));
-      window.location.href = `${newURL}=${this.pagesInPagination}`;
+    if (this.pageNumberFromURL > this.pagesInPagination && this.pageNumberFromURL > 1) {
+      const searchParams = new URLSearchParams(window.location.search);
+      searchParams.set('page', this.pagesInPagination);
+      window.location.search = searchParams.toString();
     }
   },
   methods: {
     clickCallback(pageNumber) {
-      if (window.location.href.split('=')[1] !== pageNumber) {
-        const newURL = window.location.href.substring(0, window.location.href.indexOf('='));
-        window.location.href = `${newURL}=${pageNumber}`;
-        console.log(window.location.href);
+      if (this.pageNumberFromURL !== pageNumber) {
+        const searchParams = new URLSearchParams(window.location.search);
+        searchParams.set('page', pageNumber);
+        window.location.search = searchParams.toString();
       }
     },
   },
@@ -55,6 +58,7 @@ export default {
     return {
       pagesInPagination: 1,
       pageNumber: 1,
+      pageNumberFromURL: '',
       localstorageTodos: [],
     };
   },

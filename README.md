@@ -1,4 +1,7 @@
-# test-app in VueJS (ver.1.6)
+# test-app in VueJS (ver.1.7)
+added a filter and a sort to the list
+
+ver.1.6
 fixed a problem with counting the tasks
 made a feature that switches to the new page when the new task is added
 

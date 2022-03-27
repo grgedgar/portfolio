@@ -15,12 +15,19 @@ export default {
   },
   methods: {
     deleteTodo(todo) {
+      if (window.location.href.indexOf('pending_checked') > -1) {
+        const isExecuted = confirm("If you delete in the 'pending only' mode, all completed tasks will be deleted too. Do you want to continue?");
+        if (isExecuted === false) return;
+      }
       const localstorageTodos = JSON.parse(localStorage.getItem('todos_all'));
       const index = localstorageTodos.findIndex(o => o.uid === todo.uid);
       if (index !== -1) {
         localstorageTodos.splice(index, 1);
       }
       localStorage.setItem('todos_all', JSON.stringify(localstorageTodos));
+      if (localStorage.getItem('todos_with_completed') > 0) {
+        localStorage.setItem('todos_with_completed', JSON.stringify(this.localstorageTodos));
+      }
       window.location.reload();
     },
     completeTodo(todo) {
