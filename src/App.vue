@@ -23,7 +23,7 @@ export default {
         headers: {
           'content-type': 'application/x-www-form-urlencoded',
           'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
-          'X-RapidAPI-Key': '19f5154d4amsh655ab22a91471aap154ab6jsn2a97b243d394',
+          'X-RapidAPI-Key': '4e93374920mshea9ef067cb68cf4p1e46c9jsn960044960889',
         },
         data: encodedParams,
       };
