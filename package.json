@@ -1,5 +1,5 @@
 {
-  "name": "test-app",
+  "name": "translate-app",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "Edgar Grygorian <e.hr00000@gmail.com>",
@@ -14,6 +14,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.26.1",
     "jojo": "^3.3.0",
     "vue": "^2.5.2",
     "vuejs-paginate": "^2.1.0"
