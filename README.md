@@ -1,4 +1,10 @@
-# translating-app in VueJS (ver.1.1)
+# translating-app in VueJS (ver.1.2)
+The interface becomes more and more friendly:
+- Output window text deletes after the input text is deleted;
+- Complete language names instead of abbreviations in the language lists;
+- Windows sizes became equal.
+
+ver.1.1
 - Now it is possible to manually choose the languages from the list;
 - Auto-detection of input language is added;
 - A user-friendly styling was applied.
