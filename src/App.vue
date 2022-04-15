@@ -13,11 +13,11 @@
       </select>
     </div>
     <div class="container">
-      <textarea class="source-text-container" v-model="sourceText" placeholder="Введіть текст для перекладу" type='text' ref='sourceText' defaultValue="" v-on:keyup="detectSourceLanguage"></textarea>
+      <textarea class="source-text-container" v-model="sourceText" placeholder="Введіть текст для перекладу" type='text' ref='sourceText' defaultValue="" v-on:keyup="translateText"></textarea>
       <div id="targetText" class="target-text-container">{{translatedText}}</div>
     </div>
     <div class="container">
-      <div id="detected-language"></div>
+      <div id="detected-language"><i>{{autoDetectedLanguage}}</i></div>
     </div>
   </div>
 </template>
@@ -42,30 +42,20 @@ export default {
       this.translateText();
     },
 
-    detectSourceLanguage() {
-      this.translatedText = '';
-      if (new Date() - this.lastCall < 1000) {
-        return;
-      }
-      this.lastCall = new Date();
-
-      if (!this.selectedSourceLanguage) {
-        this.autoDetectLanguage();
-        return;
-      }
-      const e = document.getElementById('selectedSourceLanguage');
-      if (e.options[e.selectedIndex].text === 'Auto detect') {
-        this.autoDetectLanguage();
-      } else {
-        this.translateText();
-      }
-    },
-
     translateText() {
+      this.translatedText = '';
+      this.autoDetectedLanguage = '';
+      if (this.sourceText.length < 1) {
+        return;
+      }
       const encodedParams = new URLSearchParams();
       encodedParams.append('q', this.sourceText);
       encodedParams.append('target', this.selectedTargetLanguage);
-      encodedParams.append('source', this.selectedSourceLanguage);
+
+      const a = document.getElementById('selectedSourceLanguage');
+      if (a.options[a.selectedIndex].text !== 'Auto detect') {
+        encodedParams.append('source', this.selectedSourceLanguage);
+      }
 
       const options = {
         method: 'POST',
@@ -73,45 +63,27 @@ export default {
         headers: {
           'content-type': 'application/x-www-form-urlencoded',
           'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
-          'X-RapidAPI-Key': '2501d822damsh1a5073c2a7f7b41p1aa7f6jsnbea5985bc7d0',
+          'X-RapidAPI-Key': '97ebe5ce8cmshf54673eaadaa810p16107cjsn8fb3163547d0',
         },
         data: encodedParams,
       };
 
       this.$axios.request(options).then((response) => {
+        if (!this.selectedSourceLanguage) {
+          const e = document.getElementById('selectedSourceLanguage');
+          if (e.options[e.selectedIndex].text === 'Auto detect') {
+            this.autoDetectedLanguage = `Detected language — ${response.data.data.translations[0].detectedSourceLanguage}`;
+
+            /* this.selectedSourceLanguage = response.data.data.translations[0].detectedSourceLanguage;
+               document.getElementById('detected-language').innerHTML = `<i>Detected language — ${this.autoDetectedLanguage}</i>`; */
+          }
+        }
         this.translatedText = response.data.data.translations[0].translatedText;
       }).catch((error) => {
         console.error(error);
       });
     },
 
-    autoDetectLanguage() {
-      const encodedParams = new URLSearchParams();
-      encodedParams.append('q', this.sourceText);
-
-      const options = {
-        method: 'POST',
-        url: 'https://google-translate1.p.rapidapi.com/language/translate/v2/detect',
-        headers: {
-          'content-type': 'application/x-www-form-urlencoded',
-          'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
-          'X-RapidAPI-Key': '2501d822damsh1a5073c2a7f7b41p1aa7f6jsnbea5985bc7d0',
-        },
-        data: encodedParams,
-      };
-
-      this.$axios.request(options).then((response) => {
-        this.autoDetectedLanguage = response.data.data.detections[0][0].language;
-        if (this.autoDetectedLanguage !== 'und') {
-          this.selectedSourceLanguage = this.autoDetectedLanguage;
-          document.getElementById('detected-language').innerHTML = `<i>Detected language — ${this.autoDetectedLanguage}</i>`;
-
-          this.translateText();
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
-    },
   },
   data() {
     return {
@@ -121,7 +93,7 @@ export default {
         Arabic: 'ar',
         Basque: 'eu',
         Bengali: 'bn',
-        'English UK': 'en-GB',
+        English: 'en',
         'Portuguese Brazil': 'pt-BR',
         Bulgarian: 'bg',
         Catalan: 'ca',
@@ -130,7 +102,6 @@ export default {
         Czech: 'cs',
         Danish: 'da',
         Dutch: 'nl',
-        'English US': 'en',
         Estonian: 'et',
         Filipino: 'fil',
         Finnish: 'fi',

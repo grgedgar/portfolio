@@ -1,4 +1,8 @@
-# translating-app in VueJS (ver.1.2)
+# translating-app in VueJS (ver.1.3)
+- Trannslating is faster now.
+
+
+ver.1.2
 The interface becomes more and more friendly:
 - Output window text deletes after the input text is deleted;
 - Complete language names instead of abbreviations in the language lists;
