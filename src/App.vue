@@ -63,7 +63,7 @@ export default {
         headers: {
           'content-type': 'application/x-www-form-urlencoded',
           'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
-          'X-RapidAPI-Key': '97ebe5ce8cmshf54673eaadaa810p16107cjsn8fb3163547d0',
+          'X-RapidAPI-Key': '0366e2ca84msh163ce4d4ecb607dp14133cjsn3aad52d5b602',
         },
         data: encodedParams,
       };
@@ -73,9 +73,6 @@ export default {
           const e = document.getElementById('selectedSourceLanguage');
           if (e.options[e.selectedIndex].text === 'Auto detect') {
             this.autoDetectedLanguage = `Detected language — ${response.data.data.translations[0].detectedSourceLanguage}`;
-
-            /* this.selectedSourceLanguage = response.data.data.translations[0].detectedSourceLanguage;
-               document.getElementById('detected-language').innerHTML = `<i>Detected language — ${this.autoDetectedLanguage}</i>`; */
           }
         }
         this.translatedText = response.data.data.translations[0].translatedText;
@@ -162,9 +159,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+
 .container{
   text-align: center;
-  margin-top: 5vh;
+  margin-top: 17vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -176,8 +174,8 @@ select {
 .source-text-container, .target-text-container{
   margin: 0 20px;
   padding: 5px;
-  width: 50vh;
-  height: 15vh;
+  width: 80vh;
+  height: 35vh;
   border: 1px solid #2c3e50;
 }
 </style>
