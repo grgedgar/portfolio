@@ -1,4 +1,4 @@
-# translating-app in VueJS
+# vuejs-translating-app in VueJS
 
 NEW ver.1.4
 
