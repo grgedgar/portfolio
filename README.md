@@ -1,31 +1,4 @@
-# vuejs-translating-app in VueJS
-
-NEW ver.1.4
-
-- User interface improvements.
-
-ver.1.3
-
-- Trannslating became faster.
-
-ver.1.2
-The interface becomes more and more friendly:
-
-- Output window text deletes after the input text is deleted;
-- Complete language names instead of abbreviations in the language lists;
-- Windows sizes became equal.
-
-ver.1.1
-
-- Now it is possible to manually choose the languages from the list;
-- Auto-detection of input language is added;
-- A user-friendly styling was applied.
-
-ver.1.0
-
-- First version, lets us translate from English to Ukrainian using RapidAPI version of Google Translate API
-
-> A Vue.js project
+# vuejs-portfolio-app in VueJS
 
 ## Build Setup
 
