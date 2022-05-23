@@ -1,10 +1,11 @@
 {
-  "name": "translate-app",
+  "name": "portfolio-app",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "Edgar Grygorian <e.hr00000@gmail.com>",
   "private": true,
   "scripts": {
+    "homepage": "./",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
